@@ -1,6 +1,6 @@
 {
-    "title": "DE 53 2022",
-    "shortName": "de-53-22",
+    "title": "DE T71 2022",
+    "shortName": "de-t71-22",
     "materialType": "lab",
     "description": "Демонстрационный экзамен 2022 по компетенции Т71",
     "assessmentPath": "./assessment/marking-scheme.json",
