@@ -1,8 +1,8 @@
 {
-    "title": "Sample lab",
-    "shortName": "smpl_lab",
+    "title": "DE 53 2022",
+    "shortName": "de-53-22",
     "materialType": "lab",
-    "description": "Sample description",
+    "description": "Демонстрационный экзамен 2022 по компетенции Т71",
     "assessmentPath": "./assessment/marking-scheme.json",
     "deploymentPath": "deploy",
     "testProjectPath": "testProject.md",
@@ -11,16 +11,6 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-            "ticket1": {
-                "type": "string",
-                "placeholder": "answer1",
-                "title": "Вопрос 1"
-            },
-            "ticket2": {
-                "type": "string",
-                "placeholder": "answer2",
-                "title": "Вопрос 2"
-            },
             "endpoint_url": {
                 "type": "string",
                 "title": "адрес приложения",
@@ -42,10 +32,10 @@
             "value": "https://portal.azure.com"
         }
     },
-    "duration": "PT3H30M",
-    "difficulty": 10,
+    "duration": "P6H00M",
+    "difficulty": 3,
     "tags": [
-        "Azure", "SampleTag"
+        "Azure", "DE", "T71"
     ],
     "skills": {}
 }
