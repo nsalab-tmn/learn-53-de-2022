@@ -1,0 +1,51 @@
+{
+    "title": "Sample lab",
+    "shortName": "smpl_lab",
+    "materialType": "lab",
+    "description": "Sample description",
+    "assessmentPath": "./assessment/marking-scheme.json",
+    "deploymentPath": "deploy",
+    "testProjectPath": "testProject.md",
+    "assetsPath": "assets",
+    "answerSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "ticket1": {
+                "type": "string",
+                "placeholder": "answer1",
+                "title": "Вопрос 1"
+            },
+            "ticket2": {
+                "type": "string",
+                "placeholder": "answer2",
+                "title": "Вопрос 2"
+            },
+            "endpoint_url": {
+                "type": "string",
+                "title": "адрес приложения",
+                "placeholder": "https://example.com"
+            }
+        }
+    },
+    "credentialsSchema": {
+        "userName": {
+            "title": "Имя пользователя",
+            "source": "learn_user"
+        },
+        "password": {
+            "title": "Пароль",
+            "source": "learn_password"
+        },
+        "consoleURL": {
+            "title": "Адрес портала",
+            "value": "https://portal.azure.com"
+        }
+    },
+    "duration": "PT3H30M",
+    "difficulty": 10,
+    "tags": [
+        "Azure", "SampleTag"
+    ],
+    "skills": {}
+}

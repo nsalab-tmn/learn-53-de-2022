@@ -1,0 +1,34 @@
+{
+    "sample id of critetion (like A)": {
+        "name": "sample criterion name",
+        "max_mark": "summary of marks of this criterion",
+        "subCriterions": {
+            "sample id of sub criterion (like 1)": {
+                "name": "sample sub criterion name",
+                "max_mark": "summary of marks of this sub criterion",
+                "aspects": {
+                    "sample id of aspect (like 1)":
+                    {
+                        "name": "sample aspect name",
+                        "type": "type of aspect. type can be 'jmespath','webrequest'. 'jmespath'. checking resource availability or property using jmespath. 'jmespath' must have field 'filterForReseachInResourse'. 'webrequest'- checking if the website is responding. 'webrequest' must have field 'nameAnswer'.",
+                        "filterForReseachInResourse":
+                        {
+                            "provider": "sample provider",
+                            "client": "sample client",
+                            "query": "query for jmespath",
+                            "api_verion": "sample api version"
+                        },
+                        "max_mark": "mark of this aspect"
+                    },
+                    "sample id of aspect (like 2)":
+                    {
+                        "name": "sample aspect name",
+                        "type": "type of aspect. type can be 'jmespath','webrequest'. 'jmespath'. checking resource availability or property using jmespath. 'jmespath' must have field 'filterForReseachInResourse'. 'webrequest'- checking if the website is responding. 'webrequest' must have field 'nameAnswer'.",
+                        "nameAnswer": "name of student answer",
+                        "max_mark": "mark of this aspect"
+                    }
+                }
+            }
+        }
+    }
+}
