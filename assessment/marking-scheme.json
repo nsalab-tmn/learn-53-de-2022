@@ -1,31 +1,196 @@
 {
-    "sample id of critetion (like A)": {
-        "name": "sample criterion name",
-        "max_mark": "summary of marks of this criterion",
+    "A": {
+        "name": "Масштабируемая инфраструктура c использованием виртуальных машин",
+        "max_mark": 27,
         "subCriterions": {
-            "sample id of sub criterion (like 1)": {
-                "name": "sample sub criterion name",
-                "max_mark": "summary of marks of this sub criterion",
+            "1": {
+                "name": "Функционирование",
+                "max_mark": 14,
                 "aspects": {
-                    "sample id of aspect (like 1)":
-                    {
-                        "name": "sample aspect name",
-                        "type": "type of aspect. type can be 'jmespath','webrequest'. 'jmespath'. checking resource availability or property using jmespath. 'jmespath' must have field 'filterForReseachInResourse'. 'webrequest'- checking if the website is responding. 'webrequest' must have field 'nameAnswer'.",
-                        "filterForReseachInResourse":
-                        {
-                            "provider": "sample provider",
-                            "client": "sample client",
-                            "query": "query for jmespath",
-                            "api_verion": "sample api version"
-                        },
-                        "max_mark": "mark of this aspect"
+                    "1": {
+                        "name": "Работоспосбность веб-приложения",
+                        "type": "webrequest",
+                        "extra_aspect": "Web-приложения отвечают на запросы c кодом 200",
+                        "requirement": "",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 6,
+                        "max_mark": 2
                     },
-                    "sample id of aspect (like 2)":
-                    {
-                        "name": "sample aspect name",
-                        "type": "type of aspect. type can be 'jmespath','webrequest'. 'jmespath'. checking resource availability or property using jmespath. 'jmespath' must have field 'filterForReseachInResourse'. 'webrequest'- checking if the website is responding. 'webrequest' must have field 'nameAnswer'.",
-                        "nameAnswer": "name of student answer",
-                        "max_mark": "mark of this aspect"
+                    "2": {
+                        "name": "Подключение к CosmosDB",
+                        "type": "status",
+                        "extra_aspect": "Подключение к DynamoDB проходит проверку в /status",
+                        "requirement": "",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 3,
+                        "query": "cosmos_db.functionality=='Working'",
+                        "max_mark": 2
+                    },
+                    "3": {
+                        "name": "Подключение к Redis",
+                        "type": "status",
+                        "extra_aspect": "Подключение к Redis проходит проверку в /status",
+                        "requirement": "",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 3,
+                        "query": "redis.functionality=='Working'",
+                        "max_mark": 2
+                    },
+                    "4": {
+                        "name": "Конфигурация Auto-Scaling group",
+                        "type": "autoscaling",
+                        "extra_aspect": "Конфигурация соответствует требованиям",
+                        "requirement": "?????????",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 3,
+                        "max_mark": 2
+                    },
+                    "5": {
+                        "name": "Масштабирование с возрастающей нагрузкой",
+                        "type": "autoscaling",
+                        "extra_aspect": "Проверяется автоматически",
+                        "requirement": "???????????",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 7,
+                        "max_mark": 2
+                    },
+                    "6": {
+                        "name": "Масштабирование со снижающейся нагрузой",
+                        "type": "autoscaling",
+                        "extra_aspect": "Проверяется автоматически",
+                        "requirement": "???????????????",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 7,
+                        "max_mark": 2
+                    },
+                    "7": {
+                        "name": "Конфигурация Application load balancer",
+                        "type": "???",
+                        "extra_aspect": "Адрес ALB соответствует предоставленному адресу",
+                        "requirement": "",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 6,
+                        "max_mark": 2
+                    }
+                }
+            },
+            "2": {
+                "name": "Конфигурация инфраструктуры",
+                "max_mark": 2,
+                "aspects": {
+                    "1": {
+                        "name": "CosmosDB аккаунт создан",
+                        "type": "jmespath",
+                        "extra_aspect": "Существует по меньшей мере одна коллекция CosmosDB в аккаунте",
+                        "requirement": "",
+                        "WSSS": 4,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.DocumentDB",
+                                    "client": "databaseAccounts",
+                                    "query": "value[*].name",
+                                    "api_version": "2021-10-15"
+                                }
+                            }
+                        },
+                        "max_mark": 0.5
+                    },
+                    "2": {
+                        "name": "Создана БД в CosmosDB",
+                        "type": "jmespath",
+                        "extra_aspect": "Название соответствует настраиваемому имени (/status)",
+                        "requirement": "?????????????????",
+                        "WSSS": 4,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Web",
+                                    "client": "sites",
+                                    "query": "value[?starts_with(name,'myDockerWebApp')]",
+                                    "api_version": "2021-03-01"
+                                }
+                            }
+                        },
+                        "max_mark": 0.5
+                    },
+                    "3": {
+                        "name": "Создан кластер Redis",
+                        "type": "jmespath",
+                        "extra_aspect": "В аккаунте создан кластер",
+                        "requirement": "",
+                        "WSSS": 4,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Cache",
+                                    "client": "Redis",
+                                    "query": "value[*].name",
+                                    "api_version": "2021-06-01"
+                                }
+                            }
+                        },
+                        "max_mark": 0.5
+                    },
+                    "4": {
+                        "name": "Размер экземпляров ВМ Redis соответствует требованиям",
+                        "type": "jmespath",
+                        "extra_aspect": "Типы экземпляров ВМ - C0",
+                        "requirement": "",
+                        "WSSS": 4,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Cache",
+                                    "client": "Redis",
+                                    "query": "value[?properties.sku.family=='C' && properties.sku.capacity==`0`]",
+                                    "api_version": "2021-06-01"
+                                }
+                            }
+                        },
+                        "max_mark": 1
+                    },
+                    "5": {
+                        "name": "Кластер Redis имеет корректную группу подсети",
+                        "type": "jmespath",
+                        "extra_aspect": "Группа подсети представлена в 2 AZ",
+                        "requirement": "",
+                        "WSSS": 4,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Web",
+                                    "client": "sites",
+                                    "query": "value[?starts_with(name,'myDockerWebApp')]",
+                                    "api_version": "2021-03-01"
+                                }
+                            }
+                        },
+                        "max_mark": 1
+                    },
+                    "6": {
+                        "name": "Application load balancer работает",
+                        "type": "jmespath",
+                        "extra_aspect": "Создан application load balancer, только если приложение работает",
+                        "requirement": "",
+                        "WSSS": 4,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Web",
+                                    "client": "sites",
+                                    "query": "value[?starts_with(name,'myDockerWebApp')]",
+                                    "api_version": "2021-03-01"
+                                }
+                            }
+                        },
+                        "max_mark": 1
                     }
                 }
             }
