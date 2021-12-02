@@ -11,7 +11,7 @@
                         "name": "Работоспосбность веб-приложения",
                         "type": "webrequest",
                         "extra_aspect": "Web-приложения отвечают на запросы c кодом 200",
-                        "requirement": "",
+                        "requirement": "Автопроверка",
                         "nameAnswer": "endpoint_url",
                         "WSSS": 6,
                         "max_mark": 2
@@ -20,7 +20,7 @@
                         "name": "Подключение к CosmosDB",
                         "type": "status",
                         "extra_aspect": "Подключение к DynamoDB проходит проверку в /status",
-                        "requirement": "",
+                        "requirement": "Автопроверка",
                         "nameAnswer": "endpoint_url",
                         "WSSS": 3,
                         "query": "cosmos_db.functionality=='Working'",
@@ -30,7 +30,7 @@
                         "name": "Подключение к Redis",
                         "type": "status",
                         "extra_aspect": "Подключение к Redis проходит проверку в /status",
-                        "requirement": "",
+                        "requirement": "Автопроверка",
                         "nameAnswer": "endpoint_url",
                         "WSSS": 3,
                         "query": "redis.functionality=='Working'",
@@ -64,25 +64,45 @@
                         "max_mark": 2
                     },
                     "7": {
-                        "name": "Конфигурация Application load balancer",
-                        "type": "???",
-                        "extra_aspect": "Адрес ALB соответствует предоставленному адресу",
-                        "requirement": "",
+                        "name": "Конфигурация application gateway",
+                        "type": "jmespathrequest",
+                        "extra_aspect": "Используется application gateway",
+                        "requirement": "Автопроверка",
                         "nameAnswer": "endpoint_url",
                         "WSSS": 6,
-                        "max_mark": 2
+                        "max_mark": 2,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "applicationGateways/web53-AppGW",
+                                    "query": "properties.frontendIPConfigurations[*].properties.publicIPAddress.id",
+                                    "api_version": "2021-06-01"
+                                }
+                            },
+                            "2": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "publicIPAddresses",
+                                    "query": "value[?id=='{}' && (contains('{}',properties.ipAddress) || contains('{}',properties.dnsSettings.fqdn))].name",
+                                    "api_version": "2021-06-01"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "2": {
                 "name": "Конфигурация инфраструктуры",
-                "max_mark": 2,
+                "max_mark": 10.5,
                 "aspects": {
                     "1": {
                         "name": "CosmosDB аккаунт создан",
                         "type": "jmespath",
-                        "extra_aspect": "Существует по меньшей мере одна коллекция CosmosDB в аккаунте",
-                        "requirement": "",
+                        "extra_aspect": "Существует по меньшей мере один CosmosDB аккаунт",
+                        "requirement": "Автопроверка",
                         "WSSS": 4,
                         "actions": {
                             "1": {
@@ -98,29 +118,29 @@
                         "max_mark": 0.5
                     },
                     "2": {
-                        "name": "Создана БД в CosmosDB",
+                        "name": "Создан кластер Redis",
                         "type": "jmespath",
-                        "extra_aspect": "Название соответствует настраиваемому имени (/status)",
-                        "requirement": "?????????????????",
+                        "extra_aspect": "В аккаунте создан кластер. Имя кластера соотвествует КЗ",
+                        "requirement": "Автопроверка",
                         "WSSS": 4,
                         "actions": {
                             "1": {
                                 "filterForReseachInResourse":
                                 {
-                                    "provider": "Microsoft.Web",
-                                    "client": "sites",
-                                    "query": "value[?starts_with(name,'myDockerWebApp')]",
-                                    "api_version": "2021-03-01"
+                                    "provider": "Microsoft.Cache",
+                                    "client": "Redis",
+                                    "query": "value[?name=='web53-Redis'].name",
+                                    "api_version": "2021-06-01"
                                 }
                             }
                         },
                         "max_mark": 0.5
                     },
                     "3": {
-                        "name": "Создан кластер Redis",
+                        "name": "Размер экземпляров ВМ Redis соответствует требованиям",
                         "type": "jmespath",
-                        "extra_aspect": "В аккаунте создан кластер",
-                        "requirement": "",
+                        "extra_aspect": "Типы экземпляров ВМ - C0.  Имя кластера соотвествует КЗ",
+                        "requirement": "Автопроверка",
                         "WSSS": 4,
                         "actions": {
                             "1": {
@@ -128,65 +148,141 @@
                                 {
                                     "provider": "Microsoft.Cache",
                                     "client": "Redis",
-                                    "query": "value[*].name",
+                                    "query": "value[?name=='web53-Redis' && properties.sku.family=='C' && properties.sku.capacity==`0`]",
                                     "api_version": "2021-06-01"
                                 }
                             }
                         },
-                        "max_mark": 0.5
+                        "max_mark": 1
                     },
                     "4": {
-                        "name": "Размер экземпляров ВМ Redis соответствует требованиям",
+                        "name": "Подключение к кластеру Redis",
                         "type": "jmespath",
-                        "extra_aspect": "Типы экземпляров ВМ - C0",
-                        "requirement": "",
+                        "extra_aspect": "Подключение к кластеру Redis осуществляется с помощью private endpoint. Имя кластера соотвествует КЗ",
+                        "requirement": "Автопроверка",
                         "WSSS": 4,
                         "actions": {
                             "1": {
                                 "filterForReseachInResourse":
                                 {
-                                    "provider": "Microsoft.Cache",
-                                    "client": "Redis",
-                                    "query": "value[?properties.sku.family=='C' && properties.sku.capacity==`0`]",
-                                    "api_version": "2021-06-01"
+                                    "provider": "Microsoft.Web",
+                                    "client": "sites",
+                                    "query": "value[?name=='web53-Redis' && properties.publicNetworkAccess=='Disabled']",
+                                    "api_version": "2021-03-01"
                                 }
                             }
                         },
                         "max_mark": 1
                     },
                     "5": {
-                        "name": "Кластер Redis имеет корректную группу подсети",
-                        "type": "jmespath",
-                        "extra_aspect": "Группа подсети представлена в 2 AZ",
-                        "requirement": "",
+                        "name": "Корректно настроен исходный порт application gateway",
+                        "type": "jmespathrequest",
+                        "extra_aspect": "Frontend port = 80 и приложение работает",
+                        "requirement": "Автопроверка",
+                        "nameAnswer": "endpoint_url",
                         "WSSS": 4,
+                        "max_mark": 0.5,
                         "actions": {
                             "1": {
                                 "filterForReseachInResourse":
                                 {
-                                    "provider": "Microsoft.Web",
-                                    "client": "sites",
-                                    "query": "value[?starts_with(name,'myDockerWebApp')]",
-                                    "api_version": "2021-03-01"
+                                    "provider": "Microsoft.Network",
+                                    "client": "applicationGateways/web53-AppGW",
+                                    "query": "properties.frontendIPConfigurations[*].properties.publicIPAddress.id",
+                                    "api_version": "2021-06-01"
+                                }
+                            },
+                            "2": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "publicIPAddresses",
+                                    "query": "value[?id=='{}' && (contains('{}',properties.ipAddress) || contains('{}',properties.dnsSettings.fqdn))].name",
+                                    "api_version": "2021-06-01"
+                                }
+                            },
+                            "3": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "applicationGateways/web53-AppGW",
+                                    "query": "properties.frontendPorts[?properties.port==`80`].name",
+                                    "api_version": "2021-06-01"
+                                }
+                            }                            
+                        }
+                    },
+                    "6": {
+                        "name": "Корректно настроен целевой порт application gateway",
+                        "type": "jmespathrequest",
+                        "extra_aspect": "Backend post = 8080  и приложение работает",
+                        "requirement": "Автопроверка",
+                        "nameAnswer": "endpoint_url",
+                        "WSSS": 4,
+                        "max_mark": 1,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "applicationGateways/web53-AppGW",
+                                    "query": "properties.frontendIPConfigurations[*].properties.publicIPAddress.id",
+                                    "api_version": "2021-06-01"
+                                }
+                            },
+                            "2": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "publicIPAddresses",
+                                    "query": "value[?id=='{}' && (contains('{}',properties.ipAddress) || contains('{}',properties.dnsSettings.fqdn))].name",
+                                    "api_version": "2021-06-01"
+                                }
+                            },
+                            "3": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "applicationGateways/web53-AppGW",
+                                    "query": "properties.backendHttpSettingsCollection[?properties.port==`8080`].name",
+                                    "api_version": "2021-06-01"
+                                }
+                            }                            
+                        }
+                    },
+                    "7": {
+                        "name": "Создана пользовательская виртуальная сеть",
+                        "type": "jmespath",
+                        "extra_aspect": "Создана пользовательская виртуальная сеть",
+                        "requirement": "Автопроверка",
+                        "WSSS": 6,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "virtualNetworks",
+                                    "query": "value[*].name",
+                                    "api_version": "2021-06-01"
                                 }
                             }
                         },
                         "max_mark": 1
                     },
-                    "6": {
-                        "name": "Application load balancer работает",
+                    "8": {
+                        "name": "Настроен NAT",
                         "type": "jmespath",
-                        "extra_aspect": "Создан application load balancer, только если приложение работает",
-                        "requirement": "",
-                        "WSSS": 4,
+                        "extra_aspect": "Настроен NAT gateway (по меньшей мере создан один nat gateway)",
+                        "requirement": "Автопроверка",
+                        "WSSS": 6,
                         "actions": {
                             "1": {
                                 "filterForReseachInResourse":
                                 {
-                                    "provider": "Microsoft.Web",
-                                    "client": "sites",
-                                    "query": "value[?starts_with(name,'myDockerWebApp')]",
-                                    "api_version": "2021-03-01"
+                                    "provider": "Microsoft.Network",
+                                    "client": "natGateways",
+                                    "query": "value[*].properties.subnets[*].id",
+                                    "api_version": "2021-06-01"
                                 }
                             }
                         },
