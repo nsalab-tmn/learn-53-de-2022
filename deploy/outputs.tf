@@ -16,3 +16,9 @@ output "learn_password" {
   sensitive = true
   depends_on  = []
 }
+
+output "deploymentInstanceId" {
+  value       = var.instance_id
+  description = "deploymentInstanceId"
+  depends_on  = []
+}
