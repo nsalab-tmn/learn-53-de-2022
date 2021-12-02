@@ -129,7 +129,7 @@
                                 {
                                     "provider": "Microsoft.Cache",
                                     "client": "Redis",
-                                    "query": "value[?name=='web53-Redis'].name",
+                                    "query": "value[?contains(name,'web53')].name",
                                     "api_version": "2021-06-01"
                                 }
                             }
@@ -148,7 +148,7 @@
                                 {
                                     "provider": "Microsoft.Cache",
                                     "client": "Redis",
-                                    "query": "value[?name=='web53-Redis' && properties.sku.family=='C' && properties.sku.capacity==`0`]",
+                                    "query": "value[?contains(name,'web53') && properties.sku.family=='C' && properties.sku.capacity==`0`]",
                                     "api_version": "2021-06-01"
                                 }
                             }
