@@ -17,7 +17,7 @@ output "learn_password" {
   depends_on  = []
 }
 
-output "deploymentInstanceId" {
+output "learn_deploymentInstanceId" {
   value       = var.instance_id
   description = "deploymentInstanceId"
   depends_on  = []
