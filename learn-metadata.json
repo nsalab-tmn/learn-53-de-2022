@@ -7,6 +7,7 @@
     "deploymentPath": "deploy",
     "testProjectPath": "testProject.md",
     "assetsPath": "assets",
+    "asyncMarking": true,
     "answerSchema": {
         "type": "object",
         "additionalProperties": false,
