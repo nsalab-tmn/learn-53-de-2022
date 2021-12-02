@@ -281,7 +281,16 @@
                                 {
                                     "provider": "Microsoft.Network",
                                     "client": "natGateways",
-                                    "query": "value[*].properties.subnets[*].id",
+                                    "query": "value[*].properties.subnets[*].id  | [0]",
+                                    "api_version": "2021-06-01"
+                                }
+                            },
+                            "2": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "virtualNetworks",
+                                    "query": "value[*].properties.subnets[?id=='{}']",
                                     "api_version": "2021-06-01"
                                 }
                             }
