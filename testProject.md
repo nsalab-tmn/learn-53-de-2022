@@ -41,14 +41,16 @@
 ### Auto Scaling
 Группа должна иметь следующие параметры:
 
+* Name: web53-ScaleSet
 * Min instances: 1
 * Max: 4
 * Desired: 1
 * Scaling Policy: Requests per instance
 * Scale out: >= 20
 * Scale in: < 20
-* Warm: 120 sec
-* Cooldown: 120 sec
+* Warm: 60 sec
+* Cooldown: 60 sec
+* Autoscale setting name: web53-AutoScale
 
 Убедитесь, что приложение запускается корректно
 

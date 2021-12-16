@@ -1,7 +1,7 @@
 {
     "A": {
         "name": "Масштабируемая инфраструктура c использованием виртуальных машин",
-        "max_mark": 27,
+        "max_mark": 29.5,
         "subCriterions": {
             "1": {
                 "name": "Функционирование",
@@ -37,31 +37,59 @@
                         "max_mark": 2
                     },
                     "4": {
-                        "name": "Конфигурация Auto-Scaling group",
-                        "type": "autoscaling",
-                        "extra_aspect": "Конфигурация соответствует требованиям",
-                        "requirement": "?????????",
+                        "name": "Конфигурация масштабируемого набора виртуальных машин",
+                        "type": "jmespathrequest",
+                        "extra_aspect": "Конфигурация соответствует требованиям КЗ",
+                        "requirement": "Автопроверка",
                         "nameAnswer": "endpoint_url",
                         "WSSS": 3,
-                        "max_mark": 2
+                        "max_mark": 2,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    
+                                    "provider": "microsoft.insights",
+                                    "client": "autoscalesettings/web53-AutoScale",
+                                    "query": "properties.profiles[?capacity.minimum=='1' && capacity.maximum=='4']",
+                                    "api_version": "2021-05-01-preview"
+                                }
+                            }
+                        }
                     },
                     "5": {
                         "name": "Масштабирование с возрастающей нагрузкой",
                         "type": "autoscaling",
                         "extra_aspect": "Проверяется автоматически",
-                        "requirement": "???????????",
+                        "requirement": "Автопроверка",
                         "nameAnswer": "endpoint_url",
                         "WSSS": 7,
-                        "max_mark": 2
+                        "max_mark": 2,
+                        "type_as": "out",
+                        "filterForReseachInResourse":
+                        {
+                            "provider": "Microsoft.Compute",
+                            "client": "virtualMachineScaleSets/web53-ScaleSet",
+                            "query": "properties.profiles[?capacity.minimum=='1' && capacity.maximum=='4']",
+                            "api_version": "2021-11-01"
+                        }
                     },
                     "6": {
                         "name": "Масштабирование со снижающейся нагрузой",
                         "type": "autoscaling",
                         "extra_aspect": "Проверяется автоматически",
-                        "requirement": "???????????????",
+                        "requirement": "Автопроверка",
                         "nameAnswer": "endpoint_url",
                         "WSSS": 7,
-                        "max_mark": 2
+                        "max_mark": 2,
+                        "type_as": "in",
+                        "filterForReseachInResourse":
+                        {
+                            "provider": "Microsoft.Compute",
+                            "client": "virtualMachineScaleSets/web53-ScaleSet",
+                            "query": "sku.capacity",
+                            "api_version": "2021-11-01"
+                        }
                     },
                     "7": {
                         "name": "Конфигурация application gateway",
@@ -96,7 +124,7 @@
             },
             "2": {
                 "name": "Конфигурация инфраструктуры",
-                "max_mark": 10.5,
+                "max_mark": 7.5,
                 "aspects": {
                     "1": {
                         "name": "CosmosDB аккаунт создан",
@@ -137,7 +165,7 @@
                         "max_mark": 0.5
                     },
                     "3": {
-                        "name": "Размер экземпляров ВМ Redis соответствует требованиям",
+                        "name": "Размер экземпляров ВМ Redis соответствует требованиям КЗ",
                         "type": "jmespath",
                         "extra_aspect": "Типы экземпляров ВМ - C0.  Имя кластера соотвествует КЗ",
                         "requirement": "Автопроверка",
@@ -284,18 +312,56 @@
                                     "query": "value[*].properties.subnets[*].id  | [0]",
                                     "api_version": "2021-06-01"
                                 }
+                            }
+                        },
+                        "max_mark": 1
+                    },
+                    "9": {
+                        "name": "Размер виртуальной машины",
+                        "type": "jmespathor",
+                        "extra_aspect": "Размер ВМ Standard_B1s",
+                        "requirement": "Автопроверка",
+                        "WSSS": 4,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Compute",
+                                    "client": "virtualMachines",
+                                    "query": "value[?properties.hardwareProfile.vmSize=='Standard_B1s']",
+                                    "api_version": "2021-04-01"
+                                }
                             },
                             "2": {
                                 "filterForReseachInResourse":
                                 {
-                                    "provider": "Microsoft.Network",
-                                    "client": "virtualNetworks",
-                                    "query": "value[*].properties.subnets[?id=='{}']",
-                                    "api_version": "2021-06-01"
+                                    "provider": "Microsoft.Compute",
+                                    "client": "virtualMachineScaleSets",
+                                    "query": "value[?name=='web53-ScaleSet' && sku.name=='Standard_B1s']",
+                                    "api_version": "2021-04-01"
                                 }
                             }
                         },
                         "max_mark": 1
+                    },
+                    "10": {
+                        "name": "Настройка пользовательской виртуальной сети",
+                        "type": "jmespath",
+                        "extra_aspect": "В пользовательской виртуальной сети настроены минимум две подсети",
+                        "requirement": "Автопроверка",
+                        "WSSS": 6,
+                        "actions": {
+                            "1": {
+                                "filterForReseachInResourse":
+                                {
+                                    "provider": "Microsoft.Network",
+                                    "client": "virtualNetworks",
+                                    "query": "value[*].properties.subnets[1]",
+                                    "api_version": "2021-04-01"
+                                }
+                            }
+                        },
+                        "max_mark": 0.5
                     }
                 }
             }
