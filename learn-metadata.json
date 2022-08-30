@@ -1,5 +1,5 @@
 {
-    "title": "DE T71 2022",
+    "title": "Демонстрационный экзамен 2022 по компетенции Т71",
     "shortName": "de-t71-22",
     "materialType": "lab",
     "description": "Демонстрационный экзамен 2022 по компетенции Т71",
@@ -13,7 +13,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-            "endpoint_url": {
+            "answer_endpoint_url": {
                 "type": "string",
                 "title": "адрес приложения",
                 "placeholder": "https://example.com"

@@ -1,4 +1,4 @@
-- name: Подключение к CosmosDB
+- name: Подключение к Redis
   code: s1
   type: check
   result:
@@ -8,4 +8,4 @@
       action_vars:
         name: "{answer_endpoint_url}/status"
         assert_code: 200
-        assert_json: cosmos_db.functionality=='Working'
+        assert_json: redis.functionality=='Working'

@@ -1,4 +1,4 @@
-- name: Работоспосбность веб-приложения
+- name: Конфигурация application gateway
   code: s1
   type: check
   result:
