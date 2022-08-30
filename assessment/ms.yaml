@@ -1,0 +1,146 @@
+Criterions:
+  - code: A
+    name: Масштабируемая инфраструктура c использованием виртуальных машин
+    subCriterions:
+      - name: Функционирование
+        code: 1
+        aspects:
+          - name: Работоспосбность веб-приложения
+            code: 1
+            description: Web-приложения отвечают на запросы c кодом 200
+            skills: []
+            max_mark: 2
+            WSSS: 6
+            steps: !include A.01.01.yaml
+            result:
+          - name: Подключение к CosmosDB
+            code: 2
+            description: Подключение к DynamoDB проходит проверку в /status
+            WSSS: 3
+            skills: []
+            max_mark: 2
+            steps: !include A.01.02.yaml
+            result:
+          - name: Подключение к Redis
+            code: 3
+            description: Подключение к Redis проходит проверку в /status
+            WSSS: 3
+            skills: []
+            max_mark: 1
+            steps: !include A.01.03.yaml
+            result:
+          - name: Конфигурация масштабируемого набора виртуальных машин
+            code: 4
+            description: Конфигурация соответствует требованиям КЗ
+            WSSS: 3
+            skills: []
+            max_mark: 2
+            steps: !include A.01.04.yaml
+            result:            
+          - name: Масштабирование с возрастающей нагрузкой
+            code: 5
+            description: Проверяется автоматически
+            WSSS: 7
+            skills: []
+            max_mark: 2
+            steps: !include A.01.05.yaml
+            result:
+          - name: Масштабирование со снижающейся нагрузой
+            code: 6
+            description: Проверяется автоматически
+            WSSS: 7
+            skills: []
+            max_mark: 2
+            steps: !include A.01.06.yaml
+            result:   
+          - name: Конфигурация application gateway
+            code: 7
+            description: Конфигурация application gateway
+            WSSS: 6
+            skills: []
+            max_mark: 2
+            steps: !include A.01.07.yaml
+            result:                                     
+      - name: Конфигурация инфраструктуры
+        code: 2
+        aspects:
+          - name: CosmosDB аккаунт создан
+            code: 1
+            description: Существует по меньшей мере один CosmosDB аккаунт
+            skills: []
+            max_mark: 0.5
+            WSSS: 4
+            steps: !include A.02.01.yaml
+            result:            
+          - name: Создан кластер Redis
+            code: 2
+            description: В аккаунте создан кластер. Имя кластера соотвествует КЗ
+            skills: []
+            max_mark: 0.5
+            WSSS: 4
+            steps: !include A.02.02.yaml
+            result:               
+          - name: Размер экземпляров ВМ Redis соответствует требованиям КЗ
+            code: 3
+            description: Типы экземпляров ВМ - C0.  Имя кластера соотвествует КЗ
+            skills: []
+            max_mark: 1
+            WSSS: 4
+            steps: !include A.02.03.yaml
+            result: 
+          - name: Подключение к кластеру Redis
+            code: 4
+            description: Подключение к кластеру Redis осуществляется с помощью private endpoint. Имя кластера соотвествует КЗ
+            skills: []
+            max_mark: 1
+            WSSS: 4
+            steps: !include A.02.04.yaml
+            result:     
+          - name: Корректно настроен исходный порт application gateway
+            code: 5
+            description: Frontend port = 80 и приложение работает
+            skills: []
+            max_mark: 0.5
+            WSSS: 4
+            steps: !include A.02.05.yaml
+            result: 
+          - name: Корректно настроен целевой порт application gateway
+            code: 6
+            description: Backend post = 8080  и приложение работает
+            skills: []
+            max_mark: 1
+            WSSS: 4
+            steps: !include A.02.06.yaml
+            result:    
+          - name: Создана пользовательская виртуальная сеть
+            code: 7
+            description: Создана пользовательская виртуальная сеть
+            skills: []
+            max_mark: 1
+            WSSS: 6
+            steps: !include A.02.07.yaml
+            result:     
+          - name: Настроен NAT
+            code: 8
+            description: Настроен NAT gateway (по меньшей мере создан один nat gateway)
+            skills: []
+            max_mark: 1
+            WSSS: 6
+            steps: !include A.02.08.yaml
+            result:  
+          - name: Размер виртуальной машины
+            code: 9
+            description: Размер ВМ Standard_B1s
+            skills: []
+            max_mark: 1
+            WSSS: 4
+            steps: !include A.02.09.yaml
+            result:    
+          - name: Настройка пользовательской виртуальной сети
+            code: 10
+            description: В пользовательской виртуальной сети настроены минимум две подсети
+            skills: []
+            max_mark: 0.5
+            WSSS: 6
+            steps: !include A.02.10.yaml
+            result:                                                                                                                                                          
