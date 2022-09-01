@@ -10,7 +10,7 @@
           - az login --service-principal --username {client_id} --password {client_secret} --tenant {tenant_id}
     - action: verify_output
       action_vars:
-        command: az redis list --resource-group {learn_rg} --query --query "[?contains(name,'web53')  && sku.family=='C' && sku.capacity==\`0\`].name"
+        command: az redis list --resource-group {learn_rg} --query "[?contains(name,'web53')  && sku.family=='C' && sku.capacity==\`0\`].name"
         tags_are_present: True
         assert_tags:  "web53"
    
