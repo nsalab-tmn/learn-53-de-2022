@@ -88,7 +88,7 @@ Criterions:
             WSSS: 4
             steps: !include A.02.03.yaml
             result: 
-          - name: Подключение к кластеру Redis
+          - name: Подключение к кластеру Redis с помощью private endpoint
             code: 4
             description: Подключение к кластеру Redis осуществляется с помощью private endpoint. Имя кластера соотвествует КЗ
             skills: []

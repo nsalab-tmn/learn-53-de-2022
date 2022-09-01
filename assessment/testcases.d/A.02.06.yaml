@@ -1,10 +1,24 @@
-- name: Работоспосбность веб-приложения
+- name: Корректно настроен целевой порт application gateway
   code: s1
   type: check
   result:
   device: local
   action_chain:
-    - action: validate_web_response
+    - action: run_shell_commands
       action_vars:
-        name: "{answer_endpoint_url}"
-        assert_code: 200
+        commands:
+          - az login --service-principal --username {client_id} --password {client_secret} --tenant {tenant_id}
+          - ip=$(az network application-gateway show --name web53-AppGW --resource-group {learn_rg} --query "frontendIpConfigurations[*].publicIpAddress.id|[0]")
+          - name=$(echo $ip | tr -d '"')
+    - action: verify_output
+      action_vars:
+        command: az network public-ip list --resource-group {learn_rg} --query "[?id == '$name' && (contains('{answer_endpoint_url}',ipAddress) || contains('{answer_endpoint_url}',dnsSettings.fqdn))]"
+        tags_are_present: True
+        assert_tags:
+          - "Microsoft.Network/publicIPAddresses"
+    - action: verify_output
+      action_vars:
+        command: az network application-gateway show --name web53-AppGW --resource-group {learn_rg} --query "backendHttpSettingsCollection[?port==\`8080\`]"
+        tags_are_present: True
+        assert_tags:
+          - 8080

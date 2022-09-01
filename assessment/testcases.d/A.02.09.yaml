@@ -1,10 +1,18 @@
-- name: Работоспосбность веб-приложения
+- name: Размер виртуальной машины
   code: s1
   type: check
   result:
   device: local
   action_chain:
-    - action: validate_web_response
+    - action: run_shell_commands
       action_vars:
-        name: "{answer_endpoint_url}"
-        assert_code: 200
+        commands:
+          - az login --service-principal --username {client_id} --password {client_secret} --tenant {tenant_id}
+          - az vm list --resource-group {learn_rg} --query "[?hardwareProfile.vmSize=='Standard_B1s']" >> result.txt
+          - az vmss list --resource-group {learn_rg} --query "[?name=='web53-ScaleSet' && sku.name=='Standard_B1s']" >> result.txt
+    - action: verify_output
+      action_vars:
+        command: cat result.txt 
+        tags_are_present: True
+        assert_tags:
+          - "Standard_B1s"

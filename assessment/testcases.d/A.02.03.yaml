@@ -1,10 +1,16 @@
-- name: Работоспосбность веб-приложения
+- name: Размер экземпляров ВМ Redis соответствует требованиям КЗ
   code: s1
   type: check
   result:
   device: local
   action_chain:
-    - action: validate_web_response
+    - action: run_shell_commands
       action_vars:
-        name: "{answer_endpoint_url}"
-        assert_code: 200
+        commands:
+          - az login --service-principal --username {client_id} --password {client_secret} --tenant {tenant_id}
+    - action: verify_output
+      action_vars:
+        command: az redis list --resource-group {learn_rg} --query --query "[?contains(name,'web53')  && sku.family=='C' && sku.capacity==\`0\`].name"
+        tags_are_present: True
+        assert_tags:  "web53"
+   

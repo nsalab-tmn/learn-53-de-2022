@@ -2,15 +2,19 @@
   code: s1
   type: check
   result:
-  device: local
+  device: dummy
   action_chain:
-    - action: run_shell_commands
+    - action: validate_web_response
       action_vars:
-        commands:
-          - az login --service-principal --username {client_id} --password {client_secret} --tenant {tenant_id}
-    - action: verify_output
+        name: "{answer_endpoint_url}"
+        assert_code: 200
+    - action: autoscaling
       action_vars:
-        command: az vm list --resource-group {learn_rg} --query "[?name=='myVM']"
-        tags_are_present: True
-        assert_tags:
-          - "myVM"
+        type_as: in
+        rg: "{learn_rg}"
+        name: "{answer_endpoint_url}"
+        filterForReseachInResourse:
+          provider: Microsoft.Compute
+          client: virtualMachineScaleSets/web53-ScaleSet
+          query: sku.capacity
+          api_version: "2021-11-01"

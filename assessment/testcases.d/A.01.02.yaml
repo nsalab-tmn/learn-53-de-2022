@@ -6,6 +6,8 @@
   action_chain:
     - action: validate_web_response
       action_vars:
-        name: "{answer_endpoint_url}/full-status"
+        name: "{answer_endpoint_url}/status"
         assert_code: 200
-        assert_json: "cosmos_db":{"container":"/name","database_name":"web53","functionality":"Working","host":"https://web53-db.documents.azure.com:443/"}
+        assert_json_answer:
+          - key: cosmos
+            value: "Successfully connected"

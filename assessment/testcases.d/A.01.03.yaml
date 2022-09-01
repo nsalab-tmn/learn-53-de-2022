@@ -8,4 +8,6 @@
       action_vars:
         name: "{answer_endpoint_url}/status"
         assert_code: 200
-        assert_json: redis.functionality=='Working'
+        assert_json_answer:
+          - key: redis
+            value: "Successfully connected"
