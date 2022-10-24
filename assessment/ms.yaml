@@ -87,17 +87,9 @@ Criterions:
             max_mark: 1
             WSSS: 4
             steps: !include A.02.03.yaml
-            result: 
-          - name: Подключение к кластеру Redis с помощью private endpoint
-            code: 4
-            description: Подключение к кластеру Redis осуществляется с помощью private endpoint. Имя кластера соотвествует КЗ
-            skills: []
-            max_mark: 1
-            WSSS: 4
-            steps: !include A.02.04.yaml
-            result:     
+            result:   
           - name: Корректно настроен исходный порт application gateway
-            code: 5
+            code: 4
             description: Frontend port = 80 и приложение работает
             skills: []
             max_mark: 0.5
@@ -105,7 +97,7 @@ Criterions:
             steps: !include A.02.05.yaml
             result: 
           - name: Корректно настроен целевой порт application gateway
-            code: 6
+            code: 5
             description: Backend post = 8080  и приложение работает
             skills: []
             max_mark: 1
@@ -113,7 +105,7 @@ Criterions:
             steps: !include A.02.06.yaml
             result:    
           - name: Создана пользовательская виртуальная сеть
-            code: 7
+            code: 6
             description: Создана пользовательская виртуальная сеть
             skills: []
             max_mark: 1
@@ -121,7 +113,7 @@ Criterions:
             steps: !include A.02.07.yaml
             result:     
           - name: Настроен NAT
-            code: 8
+            code: 7
             description: Настроен NAT gateway (по меньшей мере создан один nat gateway)
             skills: []
             max_mark: 1
@@ -129,7 +121,7 @@ Criterions:
             steps: !include A.02.08.yaml
             result:  
           - name: Размер виртуальной машины
-            code: 9
+            code: 8
             description: Размер ВМ Standard_B1s
             skills: []
             max_mark: 1
@@ -137,7 +129,7 @@ Criterions:
             steps: !include A.02.09.yaml
             result:    
           - name: Настройка пользовательской виртуальной сети
-            code: 10
+            code: 9
             description: В пользовательской виртуальной сети настроены минимум две подсети
             skills: []
             max_mark: 0.5
