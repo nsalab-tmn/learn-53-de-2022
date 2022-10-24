@@ -15,7 +15,7 @@
         "properties": {
             "answer_endpoint_url": {
                 "type": "string",
-                "title": "адрес приложения",
+                "title": "Адрес приложения",
                 "placeholder": "https://example.com"
             }
         }
