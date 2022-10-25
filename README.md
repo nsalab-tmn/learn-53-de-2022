@@ -45,8 +45,8 @@
 * Max: 4
 * Desired: 1
 * Scaling Policy: Requests per instance
-* Scale out: >= 20
-* Scale in: < 20
+* Scale out: >= 10
+* Scale in: < 10
 * Warm: 60 sec
 * Cooldown: 60 sec
 * Autoscale setting name: web53-AutoScale
