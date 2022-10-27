@@ -34,7 +34,7 @@
             "value": "https://portal.azure.com"
         }
     },
-    "duration": "PT10H00M",
+    "duration": "PT06H00M",
     "difficulty": 3,
     "tags": [
         "Azure", "DE", "T71"
