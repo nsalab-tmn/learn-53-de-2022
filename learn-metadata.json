@@ -34,10 +34,10 @@
             "value": "https://portal.azure.com"
         }
     },
-    "duration": "PT06H00M",
+    "duration": "PT08H00M",
     "difficulty": 3,
     "tags": [
-        "Azure", "DE", "T71"
+        "Демонстрационный экзамен", "Облачные технологии"
     ],
     "skills": {}
 }
