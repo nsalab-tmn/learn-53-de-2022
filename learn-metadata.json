@@ -16,7 +16,7 @@
             "answer_endpoint_url": {
                 "type": "string",
                 "title": "Адрес приложения",
-                "placeholder": "https://example.com"
+                "placeholder": "http://[IP-адрес]:[порт]"
             }
         }
     },
