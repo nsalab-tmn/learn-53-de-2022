@@ -1,0 +1,19 @@
+- name: Конфигурация application gateway
+  code: s1
+  type: check
+  result:
+  device: local
+  action_chain:
+    - action: validate_web_response
+      action_vars:
+        name: "{answer_endpoint_url}"
+        assert_code: 200
+    - action: run_shell_commands
+      action_vars:
+        commands:
+          - az login --service-principal --username {client_id} --password {client_secret} --tenant {tenant_id}
+    - action: verify_output
+      action_vars:
+        command: az network application-gateway show --name web53-AppGW --resource-group {learn_rg}
+        tags_are_present: True
+        assert_tags:  "webApplicationFirewallConfiguration"

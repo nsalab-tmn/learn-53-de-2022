@@ -1,0 +1,20 @@
+- name: Масштабирование со снижающейся нагрузой
+  code: s1
+  type: check
+  result:
+  device: dummy
+  action_chain:
+    - action: validate_web_response
+      action_vars:
+        name: "{answer_endpoint_url}"
+        assert_code: 200
+    - action: autoscaling
+      action_vars:
+        type_as: in
+        rg: "{learn_rg}"
+        name: "{answer_endpoint_url}"
+        filterForReseachInResourse:
+          provider: Microsoft.Compute
+          client: virtualMachineScaleSets/web53-ScaleSet
+          query: sku.capacity
+          api_version: "2021-11-01"

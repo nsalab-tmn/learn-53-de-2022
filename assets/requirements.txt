@@ -1,0 +1,6 @@
+azure_storage==0.36.0
+Flask==2.0.2
+PyYAML==6.0
+redis==3.5.3
+requests==2.22.0
+azure.cosmos==4.2.0

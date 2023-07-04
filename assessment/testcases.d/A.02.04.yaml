@@ -1,0 +1,15 @@
+- name: Подключение к кластеру Redis с помощью private endpoint
+  code: s1
+  type: check
+  result:
+  device: local
+  action_chain:
+    - action: run_shell_commands
+      action_vars:
+        commands:
+          - az login --service-principal --username {client_id} --password {client_secret} --tenant {tenant_id}
+    - action: verify_output
+      action_vars:
+        command: az redis list --resource-group {learn_rg} --query "[?contains(name,'web53')  && publicNetworkAccess=='Disabled']"
+        tags_are_present: True
+        assert_tags:  "web53"

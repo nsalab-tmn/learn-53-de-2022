@@ -1,21 +1,23 @@
 {
+
     "title": "Создание масштабируемой инфраструктуры на базе публичного облака",
     "shortName": "de-t71-22",
     "materialType": "lab",
     "description": "Демонстрационный экзамен 2022 по компетенции Т71",
-    "assessmentPath": "./assessment/marking-scheme.json",
-    "deploymentPath": "deploy",
-    "testProjectPath": "testProject.md",
-    "assetsPath": "assets",
+    "deploy": { "$ref": "./deploy" },
+    "text": { "$ref": "./README.md" },
+    "assets": { "$ref": "./assets" },
+    "assessment": { "$ref": "./assessment.json" },
+    "testcase": { "$ref": "./assessment/testcases.d" },
     "asyncMarking": true,
     "answerSchema": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-            "endpoint_url": {
+            "answer_endpoint_url": {
                 "type": "string",
-                "title": "адрес приложения",
-                "placeholder": "https://example.com"
+                "title": "Адрес приложения",
+                "placeholder": "http://[IP-адрес]:[порт]"
             }
         }
     },
@@ -33,10 +35,10 @@
             "value": "https://portal.azure.com"
         }
     },
-    "duration": "PT6H00M",
+    "duration": "PT08H00M",
     "difficulty": 3,
     "tags": [
-        "Azure", "Демонстрационный экзамен"
+        "Демонстрационный экзамен", "Облачные технологии"
     ],
     "skills": {}
 }
